@@ -1,0 +1,19 @@
+lex
+flex filename.l
+gcc lex.yy.c
+a.exe
+
+yacc bison
+flex name.l
+bison -dy name.y
+gcc lex.yy.c.y.tab.c
+a.exe
+
+first install 
+flex at-c\gnuwin32    2.5.4
+bison at same as flex    2.4.1
+dev c++ at c\dev-cpp
+
+environment variable:
+C:\Gnu\Win32\bin;C:\Dev-Cpp\TDM-GCC-64\bin
+
