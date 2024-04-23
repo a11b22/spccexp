@@ -6,7 +6,7 @@ def parse_input(input_string):
         print(f"{cursor.ljust(16)} E -> T E'")
         if T():
             if Edash():
-                return Truei
+                return True
             else:
                 return False
         else:
@@ -15,8 +15,8 @@ def parse_input(input_string):
 
     def Edash():
         nonlocal cursor
-        if cursor and cursor[0] in ['+', '-']:
-            print(f"{cursor.ljust(16)} E' -> {cursor[0]} T E'")
+        if cursor and cursor[0] == '+':
+            print(f"{cursor.ljust(16)} E' -> + T E'")
             cursor = cursor[1:]
             if T():
                 if Edash():
@@ -40,11 +40,11 @@ def parse_input(input_string):
         else:
             return False
 
-
+ 
     def Tdash():
         nonlocal cursor
-        if cursor and cursor[0] in ['*', '/']:
-            print(f"{cursor.ljust(16)} T' -> {cursor[0]} F T'")
+        if cursor and cursor[0] == '*':
+            print(f"{cursor.ljust(16)} T' -> * F T'")
             cursor = cursor[1:]
             if F():
                 if Tdash():
@@ -60,11 +60,7 @@ def parse_input(input_string):
    
     def F():
         nonlocal cursor
-        if cursor and cursor[0].isdigit():
-            print(f"{cursor.ljust(16)} F -> {cursor[0]}")
-            cursor = cursor[1:]
-            return True
-        elif cursor and cursor[0] == '(':
+        if cursor and cursor[0] == '(':
             print(f"{cursor.ljust(16)} F -> ( E )")
             cursor = cursor[1:]
             if E():
@@ -108,7 +104,29 @@ def main():
 if __name__ == "__main__":
     exit_code = main()
     exit(exit_code)
-    
+
+
 # OUTPUT
 # Enter the string:
 # i+(i*i)
+
+# Input          Action
+# --------------------------------
+# i+(i*i)          E -> T E'
+# i+(i*i)          T -> F T'
+# i+(i*i)          F -> i
+# +(i*i)           T' -> $
+# +(i*i)           E' -> + T E'
+# (i*i)            T -> F T'
+# (i*i)            F -> ( E )
+# i*i)             E -> T E'
+# i*i)             T -> F T'
+# i*i)             F -> i
+# *i)              T' -> * F T'
+# i)               F -> i
+# )                T' -> $
+# )                E' -> $
+#                  T' -> $
+#                  E' -> $
+# --------------------------------
+# String is successfully parsed
